@@ -1,0 +1,56 @@
+{
+  "name": "losttool",
+  "version": "1.0.1",
+  "description": "Lost Tool",
+  "author": "Souly",
+  "main": "app/main.js",
+  "scripts": {
+    "start": "electron .",
+    "icon": "node src/icon.js",
+    "obfuscate": "node src/obfuscate.js",
+    "pack": "node src/icon.js && node src/obfuscate.js && electron-builder --win",
+    "build": "node src/icon.js && node src/obfuscate.js && electron-builder --win --publish always"
+  },
+  "build": {
+    "appId": "com.souly.losttool",
+    "productName": "LostTool",
+    "directories": { "output": "dist", "buildResources": "build" },
+    "files": [
+      "app/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "**/node_modules/node-sqlite3-wasm/**"
+    ],
+    "win": {
+      "target": [{ "target": "portable", "arch": ["x64"] }],
+      "icon": "build/icon.ico",
+      "artifactName": "LostTool.exe"
+    },
+    "portable": {
+      "artifactName": "LostTool.exe",
+      "requestExecutionLevel": "user"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Alech01",
+        "repo": "lost-tool",
+        "releaseType": "release"
+      }
+    ]
+  },
+  "dependencies": {
+    "discord.js-selfbot-v13": "^3.6.1",
+    "node-sqlite3-wasm": "^0.8.0"
+  },
+  "devDependencies": {
+    "electron": "^31.3.0",
+    "electron-builder": "^24.13.3",
+    "esbuild": "^0.23.0",
+    "javascript-obfuscator": "^4.1.1",
+    "sharp": "^0.33.4",
+    "png-to-ico": "^2.1.8"
+  }
+}
